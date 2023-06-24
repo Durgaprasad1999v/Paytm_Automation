@@ -7,4 +7,6 @@ Steps
 5.Select Date
 6.Click On Search Flights
 7.Select a Flight from the list
-8.Return the details of the flight
+8.Login through QR Code
+9.Enter the Passenger details
+10.return all the meals.

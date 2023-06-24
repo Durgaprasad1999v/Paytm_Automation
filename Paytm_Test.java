@@ -1,9 +1,15 @@
 package SeleniumDemo.SeleniumDemo3;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -11,10 +17,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.opencsv.CSVWriter;
+
 public class Paytm_Test {
-	public static void main(String[] args) throws InterruptedException
+	public static void main(String[] args) throws InterruptedException, IOException
 	{
 		ChromeOptions options=new ChromeOptions();
 		options.addArguments("--disable-notifications");
@@ -37,8 +46,8 @@ public class Paytm_Test {
 		driver.findElement(By.xpath("//*[@id=\"datePickerOnward\"]/div/div/input")).click();
 		Thread.sleep(2000);
 		js.executeScript("window.scrollBy(0,300)", "");
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//*[@id=\"datePickerOnward\"]/div[2]/div/div[2]/table/tbody/tr[5]/td[5]/div/div/div")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//*[@id=\"datePickerOnward\"]/div[2]/div/div[2]/table/tbody/tr[5]/td[5]/div")).click();
 		Thread.sleep(1000);
 		js.executeScript("window.scrollBy(0,-300)", "");
 		driver.findElement(By.xpath("//*[@id=\"flightsBookingForm\"]/div[2]/div[8]/div/button")).click();
@@ -46,7 +55,7 @@ public class Paytm_Test {
 		js.executeScript("window.scrollBy(0,400)", "");
 		Thread.sleep(2000);
 		Actions action=new Actions(driver);
-		WebElement ele=driver.findElement(By.xpath("/html/body/div/div/div[2]/div/div/div/div[2]/div/div[1]/div[3]/div[1]/div[9]/a"));
+		WebElement ele=driver.findElement(By.xpath("/html/body/div/div/div[2]/div/div/div/div[2]/div/div[1]/div[6]/div[1]/div[9]/a"));
 		action.moveToElement(ele).build().perform();
 		Thread.sleep(2000);
 		ele.click();
@@ -59,22 +68,40 @@ public class Paytm_Test {
 		}
 		driver.switchTo().window(str);
 		Thread.sleep(2000);
+		js.executeScript("window.scrollBy(0,1000)", "");
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("#flights-review-traveller-details > div:nth-child(2) > div:nth-child(2) > div > div > a")).click();
+		Thread.sleep(2000);
+		driver.switchTo().frame(0);
+		driver.findElement(By.xpath("/html/body/div/div/div/div/div/span/div")).click();
+		Scanner sc=new Scanner(System.in);
+		sc.nextLine();
+		Thread.sleep(2000);
+		driver.switchTo().defaultContent();
 		js.executeScript("window.scrollBy(0,300)", "");
-		String FlightName=driver.findElement(By.xpath("/html/body/div/div/div[2]/div/div/div/div[3]/div[1]/div[1]/div[2]/div[2]/div/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]")).getText();
-		String DepTime=driver.findElement(By.xpath("/html/body/div/div/div[2]/div/div/div/div[3]/div[1]/div[1]/div[2]/div[2]/div/div[1]/div[1]/div[2]/div[1]/div[2]")).getText();
-		String DepDate=driver.findElement(By.xpath("/html/body/div/div/div[2]/div/div/div/div[3]/div[1]/div[1]/div[2]/div[2]/div/div[1]/div[1]/div[2]/div[1]/div[3]")).getText();
-		String ArrTime=driver.findElement(By.xpath("/html/body/div/div/div[2]/div/div/div/div[3]/div[1]/div[1]/div[2]/div[2]/div/div[1]/div[2]/div[3]/div[3]/div[2]")).getText();
-		String ArrDate=driver.findElement(By.xpath("/html/body/div/div/div[2]/div/div/div/div[3]/div[1]/div[1]/div[2]/div[2]/div/div[1]/div[2]/div[3]/div[3]/div[3]")).getText();
-		System.out.println("FlightName: "+FlightName);
-		System.out.println("Departure Time: "+DepTime);
-		System.out.println("Departure Date: "+DepDate);
-		System.out.println("Arrival Time: "+ArrTime);
-		System.out.println("Arrival Date: "+ArrDate);
+		driver.findElement(By.xpath("//*[@id=\"flights-review-traveller-details\"]/div[2]/div[2]/div/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div[1]")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("(//*[@id=\"text-box\"])[1]")).sendKeys("Durga");
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("(//*[@id=\"text-box\"])[2]")).sendKeys("prasad");
+		Thread.sleep(1000);
+		js.executeScript("window.scrollBy(0,700)", "");
+		driver.findElement(By.xpath("//*[@id=\"flights-review-ancillary\"]/div[2]/div/div[1]/div/div[2]/div[1]")).click();
+		Thread.sleep(3000);
+		List<WebElement> list=driver.findElements(By.className("_2AV5"));
+		ArrayList<String> arr=new ArrayList<String>();
+		for(int i=0;i<list.size();i++)
+		{
+			System.out.println(list.get(i).getText());
+		}
+		String[] ans=arr.toArray(new String[arr.size()]);
 		
 		
 		
 		
 		
+		
+
 		
 	}
 
